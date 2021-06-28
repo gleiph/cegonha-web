@@ -41,49 +41,38 @@ export default function FormDialog(props) {
   };
 
   const [data, setData] = useState([]);
+  const [dataMedical, setDatMedical] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const result = await api("medical-center/" + props.idCentralMedical );
+      const result = await api("cover-address/" + props.idCentralMedical );
       setData(result.data);
+      const res = await api("medical-center");
+      setDatMedical(res.data);
     };
     fetchData();
-
   }, []);
 
-  const [name, setname] = useState(data.name);
-  const [phone, setphone] = useState(data.phone);
-  const [latitude, setlatitude] = useState(data.latitude);
-  const [longitude, setlongitude] = useState(data.longitude);
-  const [image, setimage] = useState(data.image);
   const [street, setstreet] = useState(data.street);
-  const [number, setnumber] = useState(data.number);
+  const [number_start, setnumberstart] = useState(data.number_start);
+  const [number_end, setnumberend] = useState(data.number_end);
   const [district, setdistrict] = useState(data.district);
   const [city, setcity] = useState(data.city);
   const [uf, setuf] = useState(data.uf);
   const [cep, setcep] = useState(data.cep);
+  const [id_addres_parto, setid_addres_parto] = useState(data.id_addres_parto);
+  const [id_addres_pre_natal, setid_addres_pre_natal] = useState(data.id_addres_pre_natal);
 
   const handleChange = (event) => {
     switch (event.target.id) {
-    case 'name':
-      setname( event.target.value);
-      break
-    case  'phone':
-      setphone(event.target.value);
-    break;
-    case 'latitude':
-      setlatitude( event.target.value);
-    break;
-    case 'longitude':
-      setlongitude( event.target.value);
-    break;
-    case 'image':
-      setimage( event.target.value);
-    break;
+
     case 'street':
       setstreet( event.target.value);
     break;
-    case 'number':
-      setnumber( event.target.value);
+    case 'number_start':
+      setnumberstart( event.target.value);
+    break;
+    case 'number_end':
+      setnumberend( event.target.value);
     break;
     case 'district':
       setdistrict( event.target.value);
@@ -98,85 +87,74 @@ export default function FormDialog(props) {
     break;
     }
   }
-
-  const handleSubmit = event => {
-    event.preventDefault();
-
-    const values = {
-      name,
-      phone,
-      latitude,
-      longitude, 
-      image, 
-      street,
-      number, 
-      district, 
-      city,
-      uf, 
-      cep
-    };
-    console.log("medical-center:", values)
-    api.put(`medical-center/` + props.idCentralMedical, values)
-      .then(res => {
-        reload()
-        handleClose()
-        alert("Sucesso!!! \n Edição realiada com sucesso!!!");
-      }, (error) => {alert("Erro!!! \n A edição não foi concluída!!!");
-    });
-      
-  }
-  const reload = () => {
-
-    window.location.reload();
+  const handleChange2 = (event) => {
+    setid_addres_parto( event.target.value);
+  };
+  const handleChange3 = (event) => {
+    setid_addres_pre_natal( event.target.value);
   };
   const handleChange5 = (event) => {
     setuf( event.target.value);
   };
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    const values = {
+      street,
+      number_start,
+      number_end,
+      district, 
+      city,
+      uf, 
+      cep,
+      id_addres_parto, 
+      id_addres_pre_natal,
+    };
+
+    api.put(`cover-address/` + props.idCentralMedical, values)
+    .then(res => {
+      reload()
+      handleClose()
+      alert("Sucesso!!! \n Edição realiada com sucesso!!!");
+    }, (error) => {alert("Erro!!! \n A edição não foi concluída!!!");
+  });
+      
+  }
+ 
+  const reload = () => {
+
+    window.location.reload();
+  };
+
 
   return (
     <div>
     <EditIcon  onClick={handleClickOpen}/>
         <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnack}>
-          <Alert onClose={handleCloseSnack} severity="success">Central médica editada com sucesso!</Alert>
+          <Alert onClose={handleCloseSnack} severity="success">Endereço Coberto editado com sucesso!</Alert>
         </Snackbar>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Editar centro médico</DialogTitle>
+        <DialogTitle id="form-dialog-title">Editar endereço coberto</DialogTitle>
         <form className='white' onSubmit={handleSubmit}>
         <DialogContent>
         
               <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                  <TextField id="name" label="Nome" style={{ margin: 12 }} fullWidth onChange={handleChange} defaultValue={data.name}/>
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                  <TextField id="latitude" style={{ margin: 8 }} fullWidth label="Latitude" onChange={handleChange} defaultValue={data.latitude}/>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={6}>
-                  <TextField id="longitude" fullWidth style={{ margin: 8 }} label="Longitude" onChange={handleChange} defaultValue={data.longitude}/>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={12}>
-                  <TextField id="image" fullWidth style={{ margin: 8 }} label="Imagem" onChange={handleChange} defaultValue={data.image}/>
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                  <TextField id="phone" fullWidth style={{ margin: 8 }} label="Telefone" onChange={handleChange} defaultValue={data.phone}/>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={6}>
+              <GridItem xs={12} sm={12} md={6}>
                   <TextField id="cep" fullWidth style={{ margin: 8 }} label="CEP" onChange={handleChange} defaultValue={data.cep}/>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={9}>
+                <GridItem xs={12} sm={12} md={8}>
                   <TextField id="street" fullWidth style={{ margin: 8 }} label="Rua" onChange={handleChange} defaultValue={data.street}/>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={3}>
-                  <TextField id="number" fullWidth type="number" style={{ margin: 8 }} label="Número" onChange={handleChange} defaultValue={data.number}/>
+                <GridItem xs={12} sm={12} md={2}>
+                  <TextField id="number_start" type="number" fullWidth style={{ margin: 8 }} label="Número Inicial" onChange={handleChange} defaultValue={data.number_start}/>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={12}>
+                <GridItem xs={12} sm={12} md={2}>
+                  <TextField id="number_end" type="number" fullWidth style={{ margin: 8 }} label="Número Final" onChange={handleChange} defaultValue={data.number_end}/>
+                </GridItem>
+                <GridItem xs={12} sm={12} md={4}>
                   <TextField id="district" fullWidth style={{ margin: 8 }} label="Bairro" onChange={handleChange} defaultValue={data.district}/>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={8}>
+                <GridItem xs={12} sm={12} md={4}>
                   <TextField id="city" fullWidth style={{ margin: 8 }} label="Cidade" onChange={handleChange} defaultValue={data.city}/>
                 </GridItem>
                 <GridItem xs={10} sm={10} md={3} style={{ margin: 15 }}>
@@ -217,6 +195,40 @@ export default function FormDialog(props) {
                     <option value={"Sergipe	(SE)"}> Sergipe	(SE)</option>
                     <option value={"Tocantins	(TO)"}>Tocantins (TO)</option>
                   </NativeSelect>
+                </GridItem>
+                <GridItem xs={10} sm={10} md={5} style={{ margin: 15 }}>
+                  <InputLabel id="demo-simple-select-label">Local de Parto</InputLabel>
+                  <NativeSelect
+                    onChange={handleChange2}
+                    defaultValue={data.id_addres_parto}
+                    inputProps={{
+                      name: 'name',
+                      id: 'uncontrolled-native',
+                    }}
+                  >
+                    {dataMedical.map((option) => (
+                        <option key={option.value} value={option.id}>
+                          {option.name}
+                          </option>
+                      ))}
+                   </NativeSelect>
+                </GridItem>
+                <GridItem xs={10} sm={10} md={5} style={{ margin: 15 }}>
+                  <InputLabel id="demo-simple-select-label"  >Local de Pré Natal</InputLabel>
+                  <NativeSelect
+                    onChange={handleChange3}
+                    defaultValue={data.id_addres_pre_natal}
+                    inputProps={{
+                      name: 'name',
+                      id: 'uncontrolled-native',
+                    }}
+                  >
+                    {dataMedical.map((option) => (
+                        <option key={option.value} value={option.id}>
+                          {option.name}
+                          </option>
+                      ))}
+                   </NativeSelect>
                 </GridItem>
               </GridContainer>
         </DialogContent>

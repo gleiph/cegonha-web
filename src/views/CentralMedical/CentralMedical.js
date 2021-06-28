@@ -175,7 +175,7 @@ export default function MedicalCenter() {
           </TableCell>
           <TableCell align="right">
             <IconButton aria-label="delete" color="primary" className={classes.margin}>
-                <EditCentralMedical/> 
+                <EditCentralMedical idCentralMedical={row.id}/> 
             </IconButton>
           </TableCell>
         </TableRow>

@@ -14,6 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import EditDiscoveryAddres from './EditDiscoveryAddres';
 
 const styles = {
   cardCategoryWhite: {
@@ -111,7 +112,7 @@ export default function CoverAddress() {
                     <DeleteIcon onClick={() => handleDelete(item.id)}/>
                 </IconButton>,
                 <IconButton aria-label="delete" color="primary" className={classes.margin}>
-                    <EditIcon />
+                    <EditDiscoveryAddres idCentralMedical={item.id}/> 
                 </IconButton>
                 ]
                 ))}
