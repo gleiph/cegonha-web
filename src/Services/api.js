@@ -2,7 +2,8 @@ import axios from "axios";
 import { getToken } from "./auth";
 
 const api = axios.create({
-  baseURL: "https://pure-thicket-41731.herokuapp.com/"
+   
+  baseURL: "https://cegonhaufjf.herokuapp.com/" || "http://localhost:5000/"
 });
 
 api.interceptors.request.use(async config => {

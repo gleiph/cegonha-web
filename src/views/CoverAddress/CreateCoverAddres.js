@@ -108,8 +108,7 @@ export default function CreateCentralMedical() {
       id_addres_parto, 
       id_addres_pre_natal,
     };
-    console.log("medical-center:", values)
-    api.post(`cover-address`, values)
+     api.post(`cover-address`, values)
       .then(res => {
         console.log(res);
         console.log(res.data);

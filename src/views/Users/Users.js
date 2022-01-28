@@ -61,7 +61,7 @@ export default function Users() {
   const [data, setData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const result = await api("user");
+      const result = await api.get("user");
       setData(result.data);
     };
     fetchData();

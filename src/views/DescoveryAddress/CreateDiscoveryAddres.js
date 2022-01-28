@@ -98,7 +98,7 @@ export default function CreateCentralMedical() {
       id_addres_parto, 
       id_addres_pre_natal,
     };
-
+    console.log(values)
     api.post(`discovery-address`, values)
       .then(res => {
         console.log(res);
