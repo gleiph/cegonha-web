@@ -21,8 +21,6 @@ class SignIn extends Component {
       try {
         const response = await api.post("/login", { username, password });
         login(response.data.token);
-        console.log('token:')
-        console.log(response.data.token)
         this.props.history.push("/admin/usuarios");
       } catch (err) {
         this.setState({
