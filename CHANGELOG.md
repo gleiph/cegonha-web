@@ -244,7 +244,7 @@ ajv                        6.9.1   →   6.10.0
 - Moved the styles of `src/views/` inside `src/assets/jss/material-dashboard-react/views/`
 - Almost all styles have been changed more or less
 ### Dropped components
-- `src/components/CustomButtons/IconButton.jsx` (instead use `src/components/CustomButtons/Button.jsx` with `justIcon` prop)
+- `src/components/CustomButtons/IconButton.jsx` (instead use `src/components/CustomButtons/Button.jsx` with `justicon` prop)
 - Some components from `src/components/Typography` (instead of these we've added some css to style the normal HTML tags)
   - `src/components/Typography/A.jsx`
   - `src/components/Typography/P.jsx`

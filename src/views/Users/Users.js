@@ -13,6 +13,8 @@ import CardBody from "components/Card/CardBody.js";
 import api from "../../Services/api";
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import EditUser from './EditUser';
+import Adress from '../Adress/Adress';
 
 const styles = {
   cardCategoryWhite: {
@@ -45,9 +47,7 @@ const styles = {
 };
 
 const useStyles = makeStyles(styles);
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+
 export default function Users() {
   const [openSnack, setOpenSnack] = React.useState(false);
   const handleCloseSnack = (event, reason) => {
@@ -67,10 +67,14 @@ export default function Users() {
     fetchData();
   }, []);
 
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+
   const handleDelete = (id) => {
     api.delete("user/" + id)
     .then(res => {
-      console.log(res);
       setOpenSnack(true);
       reload()
     });
@@ -97,12 +101,18 @@ export default function Users() {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["Nome", "Email", "Rua", "Bairro", "Cidade-UF", "CEP", "Deletar"]}
+              tableHead={["Nome", "Email", "CPF", "Deletar", "Editar", "Endereços"]}
               tableData=
                 {data.map((item) => (
-                [item.name, item.email, item.street+" , "+item.number, item.district, item.city+" , "+item.uf, item.cep,  
+                [item.name, item.email, item.cpf,  
+                  <IconButton onClick={() => handleDelete(item.id)} aria-label="delete" color="secondary" className={classes.margin}  >
+                    <DeleteIcon />
+                  </IconButton>,
                   <IconButton aria-label="delete" color="secondary" className={classes.margin}  >
-                    <DeleteIcon onClick={() => handleDelete(item.id)}/>
+                  <EditUser cpfUser={item.cpf}/>
+                  </IconButton>,
+                  <IconButton aria-label="delete" color="secondary" className={classes.margin}  >
+                  <Adress cpfUser={item.cpf}></Adress>
                   </IconButton>,
                 ]
                 ))}

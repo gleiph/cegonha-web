@@ -1,35 +1,22 @@
 // @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
-import Person from "@material-ui/icons/Person";
-import LibraryBooks from "@material-ui/icons/LibraryBooks";
-import BubbleChart from "@material-ui/icons/BubbleChart";
-import LocationOn from "@material-ui/icons/LocationOn";
-import Notifications from "@material-ui/icons/Notifications";
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import Language from "@material-ui/icons/Language";
 import MessageIcon from '@material-ui/icons/Message';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 // core components/views for Admin layout
-import DashboardPage from "views/Dashboard/Dashboard.js";
-import UserProfile from "views/UserProfile/UserProfile.js";
 import Users from "views/Users/Users";
+import CreateUsers from "views/Users/CreateUsers";
 import Messages from "views/Messages/Messages";
 import CentralMedical from "views/CentralMedical/CentralMedical";
 import CoverAddress from "views/CoverAddress/CoverAddress";
 import DiscoveryAddress from "views/DescoveryAddress/DiscoveryAddress";
-import TableList from "views/TableList/TableList.js";
-import Typography from "views/Typography/Typography.js";
-import Icons from "views/Icons/Icons.js";
-import Maps from "views/Maps/Maps.js";
-import NotificationsPage from "views/Notifications/Notifications.js";
 import CreateCentralMedical from "views/CentralMedical/CreateCentralmedical";
 import CreateCoverAddres from "views/CoverAddress/CreateCoverAddres";
 import CreateDiscoverAddres from "views/DescoveryAddress/CreateDiscoveryAddres";
 
 // core components/views for RTL layout
-import RTLPage from "views/RTLPage/RTLPage.js";
+
 
 const dashboardRoutes = [
   {
@@ -38,6 +25,14 @@ const dashboardRoutes = [
     rtlName: "لوحة القيادة",
     icon: PeopleAltIcon,
     component: Users,
+    layout: "/admin"
+  },
+  {
+    path: "/create-users",
+    name: "Adicionar Usuários",
+    rtlName: "لوحة القيادة",
+    icon: PeopleAltIcon,
+    component: CreateUsers,
     layout: "/admin"
   },
   {

@@ -23,7 +23,7 @@ export default function RegularButton(props) {
     size,
     block,
     link,
-    justIcon,
+    justicon,
     className,
     muiClasses,
     ...rest
@@ -37,7 +37,7 @@ export default function RegularButton(props) {
     [classes.simple]: simple,
     [classes.block]: block,
     [classes.link]: link,
-    [classes.justIcon]: justIcon,
+    [classes.justicon]: justicon,
     [className]: className
   });
   return (
@@ -64,7 +64,7 @@ RegularButton.propTypes = {
   disabled: PropTypes.bool,
   block: PropTypes.bool,
   link: PropTypes.bool,
-  justIcon: PropTypes.bool,
+  justicon: PropTypes.bool,
   className: PropTypes.string,
   // use this to pass the classes props from Material-UI
   muiClasses: PropTypes.object,

@@ -10,7 +10,6 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import api from "../../Services/api";
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -65,7 +64,6 @@ export default function CoverAddress() {
   };
 
   const [data, setData] = useState([]);
-  const [medical, setMedical] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {

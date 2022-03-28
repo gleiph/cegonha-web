@@ -12,6 +12,7 @@ import api from "../../Services/api";
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import EditIcon from '@material-ui/icons/Edit';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -39,18 +40,17 @@ export default function FormDialog(props) {
   const [data, setData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const result = await api("medical-center/" + props.idCentralMedical );
-      setData(result.data);
+      
+      const result = await api("adress/" + props.idAdress );
+      setData(result.data[0])
+
+      
     };
     fetchData();
 
   }, []);
 
-  const [name, setname] = useState(data.name);
-  const [phone, setphone] = useState(data.phone);
-  const [latitude, setlatitude] = useState(data.latitude);
-  const [longitude, setlongitude] = useState(data.longitude);
-  const [image, setimage] = useState(data.image);
+  
   const [street, setstreet] = useState(data.street);
   const [number, setnumber] = useState(data.number);
   const [district, setdistrict] = useState(data.district);
@@ -60,21 +60,7 @@ export default function FormDialog(props) {
 
   const handleChange = (event) => {
     switch (event.target.id) {
-    case 'name':
-      setname( event.target.value);
-      break
-    case  'phone':
-      setphone(event.target.value);
-    break;
-    case 'latitude':
-      setlatitude( event.target.value);
-    break;
-    case 'longitude':
-      setlongitude( event.target.value);
-    break;
-    case 'image':
-      setimage( event.target.value);
-    break;
+    
     case 'street':
       setstreet( event.target.value);
     break;
@@ -98,12 +84,7 @@ export default function FormDialog(props) {
   const handleSubmit = event => {
     event.preventDefault();
 
-    const values = {
-      name,
-      phone,
-      latitude,
-      longitude, 
-      image, 
+    const values = { 
       street,
       number, 
       district, 
@@ -111,7 +92,14 @@ export default function FormDialog(props) {
       uf, 
       cep
     };
-    api.put(`medical-center/` + props.idCentralMedical, values)
+    console.log("rua:")
+    console.log(values)
+    console.log('idUser:')
+    console.log(props.idUser)
+    console.log('idAdress:')
+    console.log(data.id)
+    //console.log("user:", values)
+    api.put("adress/" + data.id + "/" + props.idUser, values) 
       .then(res => {
         reload()
         handleClose()
@@ -130,34 +118,17 @@ export default function FormDialog(props) {
 
   return (
     <div>
+        <EditIcon  onClick={handleClickOpen}/>
         <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnack}>
-          <Alert onClose={handleCloseSnack} severity="success">Central médica editada com sucesso!</Alert>
+          <Alert onClose={handleCloseSnack} severity="success">Usuário editado com sucesso!</Alert>
         </Snackbar>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Editar centro médico</DialogTitle>
+        <DialogTitle id="form-dialog-title">Editar Usuário</DialogTitle>
         <form className='white' onSubmit={handleSubmit}>
         <DialogContent>
         
               <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                  <TextField id="name" label="Nome" style={{ margin: 12 }} fullWidth onChange={handleChange} defaultValue={data.name}/>
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                  <TextField id="latitude" style={{ margin: 8 }} fullWidth label="Latitude" onChange={handleChange} defaultValue={data.latitude}/>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={6}>
-                  <TextField id="longitude" fullWidth style={{ margin: 8 }} label="Longitude" onChange={handleChange} defaultValue={data.longitude}/>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={12}>
-                  <TextField id="image" fullWidth style={{ margin: 8 }} label="Imagem" onChange={handleChange} defaultValue={data.image}/>
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                  <TextField id="phone" fullWidth style={{ margin: 8 }} label="Telefone" onChange={handleChange} defaultValue={data.phone}/>
-                </GridItem>
+                
                 <GridItem xs={12} sm={12} md={6}>
                   <TextField id="cep" fullWidth style={{ margin: 8 }} label="CEP" onChange={handleChange} defaultValue={data.cep}/>
                 </GridItem>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -28,53 +28,22 @@ export default function FormDialog(props) {
     setOpenSnack(false);
   };
   
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await api("medical-center/" + props.idCentralMedical );
-      setData(result.data);
-    };
-    fetchData();
-
-  }, []);
-
-  const [name, setname] = useState(data.name);
-  const [phone, setphone] = useState(data.phone);
-  const [latitude, setlatitude] = useState(data.latitude);
-  const [longitude, setlongitude] = useState(data.longitude);
-  const [image, setimage] = useState(data.image);
-  const [street, setstreet] = useState(data.street);
-  const [number, setnumber] = useState(data.number);
-  const [district, setdistrict] = useState(data.district);
-  const [city, setcity] = useState(data.city);
-  const [uf, setuf] = useState(data.uf);
-  const [cep, setcep] = useState(data.cep);
+  
+  const [street, setstreet] = useState();
+  const [number, setnumber] = useState();
+  const [district, setdistrict] = useState();
+  const [city, setcity] = useState();
+  const [uf, setuf] = useState();
+  const [cep, setcep] = useState();
 
   const handleChange = (event) => {
     switch (event.target.id) {
-    case 'name':
-      setname( event.target.value);
-      break
-    case  'phone':
-      setphone(event.target.value);
-    break;
-    case 'latitude':
-      setlatitude( event.target.value);
-    break;
-    case 'longitude':
-      setlongitude( event.target.value);
-    break;
-    case 'image':
-      setimage( event.target.value);
-    break;
+    
     case 'street':
       setstreet( event.target.value);
     break;
@@ -98,12 +67,8 @@ export default function FormDialog(props) {
   const handleSubmit = event => {
     event.preventDefault();
 
-    const values = {
-      name,
-      phone,
-      latitude,
-      longitude, 
-      image, 
+    const values = { 
+      cpfUser : props.cpfUser,
       street,
       number, 
       district, 
@@ -111,12 +76,12 @@ export default function FormDialog(props) {
       uf, 
       cep
     };
-    api.put(`medical-center/` + props.idCentralMedical, values)
+    api.post(`adress/`, values)
       .then(res => {
         reload()
         handleClose()
-        alert("Sucesso!!! \n Edição realiada com sucesso!!!");
-      }, (error) => {alert("Erro!!! \n A edição não foi concluída!!!");
+        alert("Sucesso!!! \n Endereço cadastrado com sucesso!!!");
+      }, (error) => {alert("Erro!!! \n O cadastro não foi concluído!!!");
     });
       
   }
@@ -131,59 +96,40 @@ export default function FormDialog(props) {
   return (
     <div>
         <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnack}>
-          <Alert onClose={handleCloseSnack} severity="success">Central médica editada com sucesso!</Alert>
+          <Alert onClose={handleCloseSnack} severity="success">Usuário editado com sucesso!</Alert>
         </Snackbar>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Editar centro médico</DialogTitle>
+        <DialogTitle id="form-dialog-title">Adicionar Endereço</DialogTitle>
         <form className='white' onSubmit={handleSubmit}>
         <DialogContent>
         
               <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                  <TextField id="name" label="Nome" style={{ margin: 12 }} fullWidth onChange={handleChange} defaultValue={data.name}/>
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
+                
                 <GridItem xs={12} sm={12} md={6}>
-                  <TextField id="latitude" style={{ margin: 8 }} fullWidth label="Latitude" onChange={handleChange} defaultValue={data.latitude}/>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={6}>
-                  <TextField id="longitude" fullWidth style={{ margin: 8 }} label="Longitude" onChange={handleChange} defaultValue={data.longitude}/>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={12}>
-                  <TextField id="image" fullWidth style={{ margin: 8 }} label="Imagem" onChange={handleChange} defaultValue={data.image}/>
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                  <TextField id="phone" fullWidth style={{ margin: 8 }} label="Telefone" onChange={handleChange} defaultValue={data.phone}/>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={6}>
-                  <TextField id="cep" fullWidth style={{ margin: 8 }} label="CEP" onChange={handleChange} defaultValue={data.cep}/>
+                  <TextField id="cep" fullWidth style={{ margin: 8 }} label="CEP" onChange={handleChange} />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={9}>
-                  <TextField id="street" fullWidth style={{ margin: 8 }} label="Rua" onChange={handleChange} defaultValue={data.street}/>
+                  <TextField id="street" fullWidth style={{ margin: 8 }} label="Rua" onChange={handleChange} />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={3}>
-                  <TextField id="number" fullWidth type="number" style={{ margin: 8 }} label="Número" onChange={handleChange} defaultValue={data.number}/>
+                  <TextField id="number" fullWidth type="number" style={{ margin: 8 }} label="Número" onChange={handleChange} />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12}>
-                  <TextField id="district" fullWidth style={{ margin: 8 }} label="Bairro" onChange={handleChange} defaultValue={data.district}/>
+                  <TextField id="district" fullWidth style={{ margin: 8 }} label="Bairro" onChange={handleChange} />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={8}>
-                  <TextField id="city" fullWidth style={{ margin: 8 }} label="Cidade" onChange={handleChange} defaultValue={data.city}/>
+                  <TextField id="city" fullWidth style={{ margin: 8 }} label="Cidade" onChange={handleChange} />
                 </GridItem>
                 <GridItem xs={10} sm={10} md={3} style={{ margin: 15 }}>
                   <InputLabel id="demo-simple-select-label">Estado</InputLabel>
                   <NativeSelect
                     onChange={handleChange5}
-                    defaultValue={data.uf}
                     inputProps={{
                       name: 'name',
                       id: 'uncontrolled-native',
                     }}
                   >
-                    <option value={data.uf}>{data.uf} </option>
+                    
                     <option value={"Acre (AC)"}>Acre (AC) </option>
                     <option value={"Alagoas (AL)"}>Alagoas (AL)</option>
                     <option value={"Amazonas (AM)"}>Amazonas (AM)</option>
@@ -219,7 +165,7 @@ export default function FormDialog(props) {
             Cancelar
           </Button>
           <Button color="primary" type="submit">
-            Editar
+            Adicionar Endereço
           </Button>
         </DialogActions>
         </form>

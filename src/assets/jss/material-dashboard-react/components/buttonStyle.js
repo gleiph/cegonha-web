@@ -74,7 +74,7 @@ const buttonStyle = {
       marginRight: "4px",
       verticalAlign: "middle"
     },
-    "&$justIcon": {
+    "&$justicon": {
       "& .fab,& .fas,& .far,& .fal,& .material-icons": {
         marginTop: "0px",
         position: "absolute",

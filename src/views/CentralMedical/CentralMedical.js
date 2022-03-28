@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
@@ -10,7 +9,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -19,47 +17,16 @@ import GridContainer from "components/Grid/GridContainer.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import Grid from '@material-ui/core/Grid';
-import CardAvatar from "components/Card/CardAvatar.js";
 import Button from '@material-ui/core/Button';
 import Search from "@material-ui/icons/Search";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import api from "../../Services/api";
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import EditCentralMedical from './EditCentralMedical';
 
-const styles = {
-    cardCategoryWhite: {
-      "&,& a,& a:hover,& a:focus": {
-        color: "rgba(255,255,255,.62)",
-        margin: "0",
-        fontSize: "14px",
-        marginTop: "0",
-        marginBottom: "0"
-      },
-      "& a,& a:hover,& a:focus": {
-        color: "#FFFFFF"
-      }
-    },
-    cardTitleWhite: {
-      color: "#FFFFFF",
-      marginTop: "0px",
-      minHeight: "auto",
-      fontWeight: "300",
-      fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-      marginBottom: "3px",
-      textDecoration: "none",
-      "& small": {
-        color: "#777",
-        fontSize: "65%",
-        fontWeight: "400",
-        lineHeight: "1"
-      }
-    }
-  };
+
   const useStyles = makeStyles({
     table: {
       minWidth: 700,
@@ -232,7 +199,7 @@ export default function MedicalCenter() {
                 }}
                 onChange={event => setBusca(event.target.value)}
             />
-            <Button color="white" aria-label="edit" justIcon round onClick={handleClick}> 
+            <Button color="white" aria-label="edit"  round onClick={handleClick}> 
                 <Search />
             </Button>
             </div>

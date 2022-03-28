@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
+import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
@@ -40,10 +41,10 @@ export default function CreateCentralMedical() {
   const classes = useStyles();
 
   const [name, setname] = useState('');
-  const [phone, setphone] = useState('');
-  const [latitude, setlatitude] = useState(null);
-  const [longitude, setlongitude] = useState(null);
-  const [image, setimage] = useState('');
+  const [username, setusername] = useState('');
+  const [email, setemail] = useState('');
+  const [password, setpassword] = useState('');
+  const [cpf, setcpf] = useState('');
   const [street, setstreet] = useState('');
   const [number, setnumber] = useState('');
   const [district, setdistrict] = useState('');
@@ -56,17 +57,17 @@ export default function CreateCentralMedical() {
     case 'name':
       setname( event.target.value);
       break
-    case  'phone':
-      setphone(event.target.value);
+    case  'username':
+      setusername(event.target.value);
     break;
-    case 'latitude':
-      setlatitude( event.target.value);
+    case  'email':
+      setemail(event.target.value);
     break;
-    case 'longitude':
-      setlongitude( event.target.value);
+    case 'password':
+      setpassword( event.target.value);
     break;
-    case 'image':
-      setimage( event.target.value);
+    case 'cpf':
+      setcpf( event.target.value);
     break;
     case 'street':
       setstreet( event.target.value);
@@ -95,10 +96,10 @@ export default function CreateCentralMedical() {
 
     const values = {
       name,
-      phone,
-      latitude,
-      longitude, 
-      image, 
+      username,
+      email,
+      password, 
+      cpf, 
       street,
       number, 
       district, 
@@ -106,13 +107,11 @@ export default function CreateCentralMedical() {
       uf, 
       cep
     };
-    console.log("medical-center:", values)
-    api.post(`medical-center`, values)
+    api.post("/user", values)
       .then(res => {
-        console.log(res);
-        console.log(res.data);
         alert("SUCESSO!!! \n Cadastro realizado com sucesso!!!");
-      }, (error) => {alert("Erro!!! \n O cadastro não foi realizado!!!");
+      }, 
+      (err) => {alert("Erro!!! \n O cadastro não foi realizado!!!", err);
     });
       
   }
@@ -123,8 +122,8 @@ export default function CreateCentralMedical() {
           <Card>
           <form className='white' onSubmit={handleSubmit}>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Centro Médico</h4>
-              <p className={classes.cardCategoryWhite}>Preencha todos os campos para cadastrar novo centro médico</p>
+              <h4 className={classes.cardTitleWhite}>Usuário</h4>
+              <p className={classes.cardCategoryWhite}>Preencha todos os campos para cadastrar novo usuário</p>
             </CardHeader>
             <CardBody>
             
@@ -133,25 +132,26 @@ export default function CreateCentralMedical() {
                   <TextField id="name" label="Nome" style={{ margin: 8 }} fullWidth onChange={handleChange}/>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={3}>
-                  <TextField id="phone" fullWidth style={{ margin: 8 }} label="Telefone" onChange={handleChange}/>
+                  <TextField id="username" fullWidth style={{ margin: 8 }} label="Nome de Usuário" onChange={handleChange}/>
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
-                  <TextField id="latitude" style={{ margin: 8 }} fullWidth label="Latitude" onChange={handleChange}/>
+                  <TextField id="email" style={{ margin: 8 }} fullWidth label="Email" onChange={handleChange}/>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
-                  <TextField id="longitude" fullWidth style={{ margin: 8 }} label="Longitude" onChange={handleChange}/>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={12}>
-                  <TextField id="image" fullWidth style={{ margin: 8 }} label="Imagem" onChange={handleChange}/>
+                  <TextField id="password" fullWidth style={{ margin: 8 }} label="Senha" onChange={handleChange}/>
                 </GridItem>
               </GridContainer>
-              <h4>Endereço</h4>
               <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
+                <GridItem xs={12} sm={12} md={10}>
+                  <TextField id="cpf" fullWidth style={{ margin: 8 }} label="CPF" onChange={handleChange}/>
+                </GridItem>
+                <p>Endereços</p>
+                <GridItem xs={12} sm={12} md={3}>
                   <TextField id="cep" fullWidth style={{ margin: 8 }} label="CEP" onChange={handleChange}/>
                 </GridItem>
+                
                 <GridItem xs={12} sm={12} md={9}>
                   <TextField id="street" fullWidth style={{ margin: 8 }} label="Rua" onChange={handleChange}/>
                 </GridItem>
@@ -166,6 +166,7 @@ export default function CreateCentralMedical() {
                 </GridItem>
                 <GridItem xs={10} sm={10} md={3} style={{ margin: 15 }}>
                   <InputLabel id="demo-simple-select-label">Estado</InputLabel>
+                  
                   <Select 
                     labelId="demo-simple-select-label"
                     id="uf"
