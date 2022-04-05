@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import {Routes,Route, Navigate } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
@@ -20,21 +20,21 @@ import logo from "assets/img/rede-cegonha.png";
 let ps;
 
 const switchRoutes = (
-  <Switch>
+  <Routes>
     {routes.map((prop, key) => {
       if (prop.layout === "/admin") {
         return (
           <Route
             path={prop.layout + prop.path}
-            component={prop.component}
+            element={<prop.component/>}
             key={key}
           />
         );
       }
       return null;
     })}
-    <Redirect from="/admin" to="/admin/dashboard" />
-  </Switch>
+    <Route path="/admin/*" element={<Navigate to="/admin/dashboard"/>}/>
+  </Routes>
 );
 
 const useStyles = makeStyles(styles);
@@ -120,5 +120,10 @@ export default function Admin({ ...rest }) {
         {getRoute() ? <Footer /> : null}
       </div>
     </div>
+
+
+
+
+
   );
 }

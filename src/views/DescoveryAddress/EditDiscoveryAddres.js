@@ -6,7 +6,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import EditIcon from '@material-ui/icons/Edit';
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import MenuItem from '@material-ui/core/MenuItem';
@@ -119,7 +118,6 @@ export default function FormDialog(props) {
 
   return (
     <div>
-    <EditIcon  onClick={handleClickOpen}/>
         <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnack}>
           <Alert onClose={handleCloseSnack} severity="success">Endereço descoberto editado com sucesso!</Alert>
         </Snackbar>

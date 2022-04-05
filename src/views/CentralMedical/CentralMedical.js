@@ -101,7 +101,7 @@ export default function MedicalCenter() {
   const handleDelete = (id) => {
     api.delete("medical-center/" + id)
     .then(res => {
-      console.log(res);
+    
       setOpenSnack(true);
       reload()
     });

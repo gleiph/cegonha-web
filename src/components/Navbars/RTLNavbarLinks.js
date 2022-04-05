@@ -51,13 +51,13 @@ export default function RTLNavbarLinks() {
             }
           }}
         />
-        <Button color="white" aria-label="edit" justIcon round>
+        <Button color="white" aria-label="edit" justicon round>
           <Search />
         </Button>
       </div>
       <Button
         color={window.innerWidth > 959 ? "transparent" : "white"}
-        justIcon={window.innerWidth > 959}
+        justicon={window.innerWidth > 959}
         simple={!(window.innerWidth > 959)}
         aria-label="Dashboard"
         className={classes.buttonLink}
@@ -70,7 +70,7 @@ export default function RTLNavbarLinks() {
       <div className={classes.manager}>
         <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
-          justIcon={window.innerWidth > 959}
+          justicon={window.innerWidth > 959}
           simple={!(window.innerWidth > 959)}
           aria-owns={open ? "menu-list-grow" : null}
           aria-haspopup="true"
@@ -147,7 +147,7 @@ export default function RTLNavbarLinks() {
       </div>
       <Button
         color={window.innerWidth > 959 ? "transparent" : "white"}
-        justIcon={window.innerWidth > 959}
+        justicon={window.innerWidth > 959}
         simple={!(window.innerWidth > 959)}
         aria-label="Person"
         className={classes.buttonLink}

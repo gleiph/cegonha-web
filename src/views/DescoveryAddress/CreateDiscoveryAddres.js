@@ -98,11 +98,10 @@ export default function CreateCentralMedical() {
       id_addres_parto, 
       id_addres_pre_natal,
     };
-    console.log(values)
+    
     api.post(`discovery-address`, values)
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+      
         alert("SUCESSO!!! \n Cadastro realizado com sucesso!!!");
       }, (error) => {alert("Erro!!! \n O cadastro não foi realizado!!!");
     });

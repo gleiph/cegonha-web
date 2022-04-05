@@ -65,7 +65,7 @@ export default function Dashboard() {
               }
             }}
           />
-          <Button color="white" aria-label="edit" justIcon round>
+          <Button color="white" aria-label="edit" justicon round>
             <Search />
           </Button>
         </div>

@@ -75,8 +75,6 @@ export default function FormDialog(props) {
        await api("user/" + props.cpfUser )
       .then(async(res) => {
          setData(res.data)
-        //console.log('adress.length:')
-        //console.log(res.data[0].adresses.length)
       })
     };
     fetchData();
@@ -114,11 +112,8 @@ export default function FormDialog(props) {
   }
 
   const handleDelete = async (idAdress, idUser ) => {
-    console.log(idAdress)
-    console.log(idUser)
     await api.delete("adress/" + idAdress + "/" + idUser )
     .then(res => {
-      console.log(res);
       setOpenSnack(true);
       reload()
     });
@@ -136,9 +131,8 @@ export default function FormDialog(props) {
       uf, 
       cep
     };
-    console.log("rua:")
-    console.log(data)
-    //console.log("user:", values)
+   
+
     /*api.put(`adress/` + props.idAdress, values)
       .then(res => {
         reload()

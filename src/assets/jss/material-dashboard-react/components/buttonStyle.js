@@ -299,7 +299,7 @@ const buttonStyle = {
       boxShadow: "none"
     }
   },
-  justIcon: {
+  justicon: {
     paddingLeft: "12px",
     paddingRight: "12px",
     fontSize: "20px",

@@ -16,28 +16,33 @@
 
 */
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { createBrowserHistory } from "history";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
+import {BrowserRouter , Route, Routes, Navigate} from "react-router-dom";
 
 // core components
 import Admin from "layouts/Admin.js";
 import RTL from "layouts/RTL.js";
 import Login from "views/Login/Login"
 
+
 import "assets/css/material-dashboard-react.css?v=1.9.0";
 
 const hist = createBrowserHistory();
 
-ReactDOM.render(
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
+
+root.render(
   
-    <Router history={hist}>
-      <Switch>
-        <Route path="/admin" component={Admin} />
-        <Route path="/rtl" component={RTL} />
-        <Route path="/login" component={Login} />
-        <Redirect from="/" to="/login" />
-      </Switch>
-    </Router>,
-    document.getElementById("root")
+    <BrowserRouter history={hist}>
+      <Routes>
+        <Route path="/material-dashboard-react" element={<Navigate to="/"/>} />
+        <Route path="/" element={<Navigate to="/login"/>} />
+        <Route path="/admin" element={<Admin/>} />
+        <Route path="/rtl" element={<RTL/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="*" element={<h1>Not found</h1>} />
+      </Routes>
+    </BrowserRouter>,
 );

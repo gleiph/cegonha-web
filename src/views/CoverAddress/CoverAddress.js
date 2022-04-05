@@ -64,6 +64,7 @@ export default function CoverAddress() {
   };
 
   const [data, setData] = useState([]);
+  const [medical, setMedical] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,7 +77,7 @@ export default function CoverAddress() {
   const handleDelete = (id) => {
     api.delete("cover-address/" + id)
     .then(res => {
-      console.log(res);
+      
       setOpenSnack(true);
       reload()
     });

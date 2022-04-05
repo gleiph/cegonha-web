@@ -110,8 +110,7 @@ export default function CreateCentralMedical() {
     };
      api.post(`cover-address`, values)
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+     
         alert("SUCESSO!!! \n Cadastro realizado com sucesso!!!");
       }, (error) => {alert("Erro!!! \n O cadastro não foi realizado!!!");
     });

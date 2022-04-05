@@ -75,7 +75,6 @@ export default function CoverAddress() {
   const handleDelete = (id) => {
     api.delete("discovery-address/" + id)
     .then(res => {
-      console.log(res);
       setOpenSnack(true);
       reload()
     });

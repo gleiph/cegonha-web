@@ -12,6 +12,7 @@ import api from "../../Services/api";
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import EditIcon from '@material-ui/icons/Edit';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -40,6 +41,10 @@ export default function FormDialog(props) {
   const [city, setcity] = useState();
   const [uf, setuf] = useState();
   const [cep, setcep] = useState();
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
   const handleChange = (event) => {
     switch (event.target.id) {
@@ -95,6 +100,7 @@ export default function FormDialog(props) {
 
   return (
     <div>
+        <EditIcon  onClick={handleClickOpen}/>
         <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnack}>
           <Alert onClose={handleCloseSnack} severity="success">Usuário editado com sucesso!</Alert>
         </Snackbar>

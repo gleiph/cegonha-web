@@ -92,13 +92,7 @@ export default function FormDialog(props) {
       uf, 
       cep
     };
-    console.log("rua:")
-    console.log(values)
-    console.log('idUser:')
-    console.log(props.idUser)
-    console.log('idAdress:')
-    console.log(data.id)
-    //console.log("user:", values)
+    
     api.put("adress/" + data.id + "/" + props.idUser, values) 
       .then(res => {
         reload()

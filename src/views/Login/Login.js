@@ -1,57 +1,54 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import api from "../../Services/api";
 import { login } from "../../Services/auth";
+import Admin from "../../layouts/Admin"
 
 
-class SignIn extends Component {
-  state = {
-    username: "",
-    password: "",
-    error: ""
-  };
+export default (() => {
 
-  handleSignIn = async e => {
+  const navigate = useNavigate();
+
+  const [username, setUsername] = useState(''); 
+  const [password, setPassword] = useState(''); 
+  const [error, setError] = useState(''); 
+
+
+  const handleSignIn = async (e) => {
+
     e.preventDefault();
-    const { username, password } = this.state;
     if (!username || !password) {
-      this.setState({ error: "Preencha e-mail e senha para continuar!" });
+      setError( "Preencha e-mail e senha para continuar!");
     } else {
       try {
         const response = await api.post("/login", { username, password });
         login(response.data.token);
-        this.props.history.push("/admin/usuarios");
+        navigate("/admin/usuarios");
       } catch (err) {
-        this.setState({
-          error:
-            "Houve um problema com o login, verifique suas credenciais. T.T"
-        });
+        setError( "Houve um problema com o login, verifique suas credenciais. T.T");
       }
     }
   };
 
-  render() {
     return (
       <Grid>
-        <form onSubmit={this.handleSignIn}>
-          {this.state.error && <p>{this.state.error}</p>}
+        <form onSubmit={handleSignIn}>
+          {error && <p>{error}</p>}
           <input
             type="username"
             placeholder="Usuário"
-            onChange={e => this.setState({ username: e.target.value })}
+            onChange={e => setUsername(e.target.value )}
           />
           <input
             type="password"
             placeholder="Senha"
-            onChange={e => this.setState({ password: e.target.value })}
+            onChange={e => setPassword(e.target.value )}
           />
           <button type="submit">Entrar</button>
           <hr />
         </form>
       </Grid>
     );
-  }
-}
-
-export default withRouter(SignIn);
+  
+})
